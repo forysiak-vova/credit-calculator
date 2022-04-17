@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
+  "include": [
+    "src",
+    "decs.d.ts"
+  ]
+}
