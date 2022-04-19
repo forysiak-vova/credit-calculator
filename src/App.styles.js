@@ -10,7 +10,8 @@ export const Header = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
+  padding-top: 70px;
   font-size: calc(10px + 2vmin);
   color: white;
 `;
