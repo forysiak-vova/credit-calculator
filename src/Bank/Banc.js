@@ -5,10 +5,8 @@ import {
    FormAction,
    FormInput,
    Input,
-   Table,
-   Th,
-   Td
 } from './Banc.styles';
+import Table from '../Table';
 import { useState } from 'react';
 
 const Banc = () => {
@@ -23,10 +21,13 @@ const Banc = () => {
    // });
    const [bancname, setBancname] = useState('');
    const [interestrate, setInterestrate] = useState('');
+   const [maximumcredit, setMaximumcredit] = useState('');
+   const [minimumcontribution, setMinimumcontribution] = useState('');
+   const [loanterm, setLoanterm] = useState('');
 
 
-   const [resOfForm, setResOfForm] = useState(null);
-  console.log(resOfForm)
+   const [dataForm, setDataForm] = useState('');
+  console.log(dataForm)
    const handleInputChange = e => {
       const { name, value } = e.target;
       switch (name) {
@@ -36,6 +37,15 @@ const Banc = () => {
          case 'interest-rate':
             setInterestrate(value);
             break;
+         case 'maximum-credit':
+            setMaximumcredit(value)
+            break;
+         case 'minimum-contribution':
+            setMinimumcontribution(value);
+            break;
+         case 'loan-term':
+            setLoanterm(value);
+
          default:
             return;
 
@@ -50,7 +60,14 @@ const Banc = () => {
       e.preventDefault();
       // console.log(values['banc-name'], values['interest-rate'], values['maximum-credit'])
       // const obj = (values['banc-name'], values['interest-rate'], values['maximum-credit'])
-    setResOfForm({bancname, interestrate})
+      const data = { bancname, interestrate, maximumcredit, minimumcontribution, loanterm }
+      setDataForm(prevState => [data, ...prevState]);
+      setBancname('');
+      setInterestrate('');
+      setMaximumcredit('');
+      setMinimumcontribution('');
+      setLoanterm('');
+
    }
 
    return (
@@ -84,14 +101,14 @@ const Banc = () => {
                />
             </FormInput>
             </FormItem>
-{/* 
+
                <FormItem>
             <label htmlFor="maximum-credit">Maximum Credit</label>
             <FormInput>
                <Input
                   type='number'
                      name='maximum-credit'
-                     value={values['maximum-credit']}
+                     value={maximumcredit}
                      onChange={handleInputChange}
                />
             </FormInput>
@@ -103,7 +120,7 @@ const Banc = () => {
                <Input
                   type='number'
                      name='minimum-contribution'
-                     value={values['minimum-contribution']}
+                     value={minimumcontribution}
                      onChange={handleInputChange}
                />
             </FormInput>
@@ -115,15 +132,17 @@ const Banc = () => {
                <Input
                   type='number'
                      name='loan-term'
-                     value={values['loan-term']}
+                     value={loanterm}
                      onChange={handleInputChange}
                />
             </FormInput>
-            </FormItem> */}
+            </FormItem>
          <FormAction>
             <CalculateButton type="submit">Create Banc</CalculateButton>
         </FormAction>
-      </form>
+         </form>
+         {dataForm && <Table dataForm={dataForm}/>}
+               
             </Container>
    )
 };
