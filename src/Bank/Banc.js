@@ -6,11 +6,16 @@ import {
    FormInput,
    Input,
 } from './Banc.styles';
+import { nanoid } from 'nanoid';
 import Table from '../Table';
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {addData} from '../redux/bankSlice'
 
 const Banc = () => {
-  
+   const dispatch = useDispatch();
+   const selector = useSelector(state => state.bank.dataForm);
+   // console.log(selector)
    // const [values, setValues] = useState({
    //    'banc-name': 0,
    //    'interest-rate': 0,
@@ -27,7 +32,7 @@ const Banc = () => {
 
 
    const [dataForm, setDataForm] = useState('');
-  console.log(dataForm)
+//   console.log(dataForm)
    const handleInputChange = e => {
       const { name, value } = e.target;
       switch (name) {
@@ -45,7 +50,8 @@ const Banc = () => {
             break;
          case 'loan-term':
             setLoanterm(value);
-
+            break;
+         
          default:
             return;
 
@@ -60,15 +66,19 @@ const Banc = () => {
       e.preventDefault();
       // console.log(values['banc-name'], values['interest-rate'], values['maximum-credit'])
       // const obj = (values['banc-name'], values['interest-rate'], values['maximum-credit'])
-      const data = { bancname, interestrate, maximumcredit, minimumcontribution, loanterm }
+      const data = { id: nanoid(), bancname, interestrate, maximumcredit, minimumcontribution, loanterm }
       setDataForm(prevState => [data, ...prevState]);
+      if (!data) {
+         return
+      }
+      dispatch(addData(data))
       setBancname('');
       setInterestrate('');
       setMaximumcredit('');
       setMinimumcontribution('');
       setLoanterm('');
 
-   }
+   };
 
    return (
       <Container>
@@ -90,12 +100,12 @@ const Banc = () => {
          </FormItem>
          
                <FormItem>
-            <label htmlFor="interest-rate">Interest rate</label>
+            <label htmlFor="interest-rate">Loan Amount</label>
             <FormInput>
                <Input
                   type='number'
                      name='interest-rate'
-                       placeholder="interest-rate"
+                       placeholder="loan-amount"
                      value={interestrate}
                      onChange={handleInputChange}
                />
@@ -103,18 +113,19 @@ const Banc = () => {
             </FormItem>
 
                <FormItem>
-            <label htmlFor="maximum-credit">Maximum Credit</label>
+            <label htmlFor="maximum-credit">Loan Term (Years)</label>
             <FormInput>
                <Input
                   type='number'
                      name='maximum-credit'
+                     placeholder='loan-term'
                      value={maximumcredit}
                      onChange={handleInputChange}
                />
             </FormInput>
             </FormItem>
 
-               <FormItem>
+               {/* <FormItem>
             <label htmlFor="minimum-contribution">Minimum Contribution</label>
             <FormInput>
                <Input
@@ -124,24 +135,25 @@ const Banc = () => {
                      onChange={handleInputChange}
                />
             </FormInput>
-            </FormItem>
+            </FormItem> */}
 
                <FormItem>
-            <label htmlFor="loan-term">Loan Term</label>
+            <label htmlFor="loan-term">Interest Rate</label>
             <FormInput>
                <Input
                   type='number'
                      name='loan-term'
+                     placeholder='interest-rate'
                      value={loanterm}
                      onChange={handleInputChange}
                />
             </FormInput>
             </FormItem>
          <FormAction>
-            <CalculateButton type="submit">Create Banc</CalculateButton>
+            <CalculateButton type="submit">Create Bank</CalculateButton>
         </FormAction>
          </form>
-         {dataForm && <Table dataForm={dataForm}/>}
+         {selector.length > 0 && <Table dataForm={selector}/>}
                
             </Container>
    )

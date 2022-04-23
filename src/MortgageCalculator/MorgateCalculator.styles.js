@@ -54,6 +54,7 @@ export const Input = styled.input`
 export const Table = styled.table`
    width: 100%;
    border-spacing: 0;
+   padding-bottom: 50px;
 `;
 
 export const Th = styled.th`
@@ -64,4 +65,25 @@ border-bottom: 1px solid #e6e6e6;
 export const Td = styled.td`
 border-bottom: 1px solid #e6e6e6;
    padding: 5px 0;
+`;
+
+export const Option = styled.option`
+ height: 32px;
+  width: 150px;
+   border-radius: 3px;
+   border: 0px;
+   margin: 10px 0;
+   font-size: 16px;
+
+`;
+
+export const Select = styled.select`
+ height: 32px;
+  width: 150px;
+   border-radius: 3px;
+   border: 0px;
+   margin: 10px 0;
+   font-size: 16px;
+ 
+
 `;
