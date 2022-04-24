@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-
+import { Toaster } from 'react-hot-toast';
 import MortgageCalculator from './MortgageCalculator';
 import Bank from 'Bank';
 import AppBar from 'AppBar';
@@ -15,6 +15,7 @@ function App() {
           <Route path='*' element={<Navigate to='/'/>}/>
         </Routes>
       </Header>
+       <Toaster position="top-right"/>
     </Ap>
   )
 }

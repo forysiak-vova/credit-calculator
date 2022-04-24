@@ -10,7 +10,8 @@ import { nanoid } from 'nanoid';
 import Table from '../Table';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {addData} from '../redux/bankSlice'
+import { addData } from '../redux/bankSlice';
+import { toast } from 'react-hot-toast';
 
 const Banc = () => {
    const dispatch = useDispatch();
@@ -133,13 +134,33 @@ const Banc = () => {
     }
 
 
-   const handelSubmit = e => {
-      e.preventDefault();
-      const data = { id: nanoid(), bancname, interestrate, maximumcredit, loanterm }
-      if (!data) {
-         return
-      }
-      dispatch(addData(data))
+   // const handelSubmit = e => {
+   //    e.preventDefault();
+   //    const data = { id: nanoid(), bancname, interestrate, maximumcredit, loanterm }
+   //    if (!data) {
+   //       return
+   //    }
+   //    dispatch(addData(data))
+   //    setBancname('');
+   //    setInterestrate('');
+   //    setMaximumcredit('');
+   //    setLoanterm('');
+
+   // };
+
+    const handelSubmit = e => {
+       e.preventDefault();
+          const data = { id: nanoid(), bancname, interestrate, maximumcredit, loanterm }
+       const returnName = selector.find(sel => sel.bancname === bancname)
+
+       if (returnName) {
+          toast.error('Bank with that name already exists')
+       } else {
+          dispatch(addData(data))
+       }
+
+
+     
       setBancname('');
       setInterestrate('');
       setMaximumcredit('');
