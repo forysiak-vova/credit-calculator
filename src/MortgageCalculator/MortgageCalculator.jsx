@@ -17,6 +17,7 @@ export default function MortgageCalculator() {
 
  
   const [installments, setInstallments] = useState([]);
+ 
   
    
      const calculate = (amount, years, rate) => {
@@ -35,7 +36,7 @@ export default function MortgageCalculator() {
   const resSum = installments[1]?.installment;
   const sumPaymentAmount = arrayLength * resSum;
   // const interestPaid = sumPaymentAmount - interest;
-  const interestPaid = sumPaymentAmount;
+  // const interestPaid = sumPaymentAmount;
  
 
 
@@ -86,7 +87,7 @@ export default function MortgageCalculator() {
                 <Td>{amountFormat(i.installment)}</Td>
                 <Td>{amountFormat(i.interest)}</Td>
                 <Td>{amountFormat(i.capital)}</Td>
-                  <Td>{amountFormat(i.remain)}</Td>
+                <Td>{amountFormat(i.remain)}</Td>
                   
               </tr>
             ))}
@@ -94,9 +95,9 @@ export default function MortgageCalculator() {
               <tfoot>
                  {installments &&
                    <tr>
-                    <Td>Amount</Td>
+                <Td>Amount</Td>
                     <Td>{amountFormat(sumPaymentAmount)}</Td>
-                <Td>{amountFormat(interestPaid)}</Td>
+                    <Td>-</Td>
                     
                 {/* <Td>{amountFormat(interest)}</Td> */}
                     <Td>-</Td>
