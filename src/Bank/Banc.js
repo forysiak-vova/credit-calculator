@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addData } from '../redux/bankSlice';
 import { toast } from 'react-hot-toast';
+import { style } from '@mui/system';
 
 const Banc = () => {
    const dispatch = useDispatch();
@@ -44,10 +45,10 @@ const Banc = () => {
 
    useEffect(() => {
       if (bancnameError || interestrateError || maximumcreditError || loantermError) {
-          setFormValid(false)
+         setFormValid(false)
       } else {
          setFormValid(true)
-       }
+      }
    },[bancnameError, interestrateError, maximumcreditError, loantermError])
 
 
@@ -150,13 +151,17 @@ const Banc = () => {
 
     const handelSubmit = e => {
        e.preventDefault();
-          const data = { id: nanoid(), bancname, interestrate, maximumcredit, loanterm }
+       
+       const data = { id: nanoid(), bancname, interestrate, maximumcredit, loanterm }
+       
        const returnName = selector.find(sel => sel.bancname === bancname)
 
        if (returnName) {
           toast.error('Bank with that name already exists')
+          return
        } else {
           dispatch(addData(data))
+         
        }
 
 
@@ -164,7 +169,8 @@ const Banc = () => {
       setBancname('');
       setInterestrate('');
       setMaximumcredit('');
-      setLoanterm('');
+       setLoanterm('');
+       
 
    };
 
@@ -181,7 +187,7 @@ const Banc = () => {
                <Input
                      type='text'
                      placeholder="banc-name"
-                     //  pattern="^[a-zA-Zа-яА-Я]{1,15}"
+                      pattern="^[a-zA-Zа-яА-Я]{1,15}"
                      name='banc-name'
                      value={bancname}
                      onChange={handleInputChange}
@@ -236,7 +242,7 @@ const Banc = () => {
             </FormInput>
             </FormItem>
          <FormAction>
-            <CalculateButton disabled={!formValid} type="submit">Create Bank</CalculateButton>
+               <CalculateButton disabled={!formValid}  type="submit">Create Bank</CalculateButton>
         </FormAction>
          </form>
          {selector.length > 0 && <Table dataForm={selector}/>}

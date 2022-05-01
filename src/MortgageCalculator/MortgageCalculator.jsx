@@ -13,7 +13,7 @@ import {
 
 export default function MortgageCalculator() {
   const selector = useSelector(state => state.bank.dataForm);
-  const [interest, setInterest] = useState(null);
+  // const [interest, setInterest] = useState(null);
 
  
   const [installments, setInstallments] = useState([]);
@@ -34,7 +34,8 @@ export default function MortgageCalculator() {
   const arrayLength = installments.length;
   const resSum = installments[1]?.installment;
   const sumPaymentAmount = arrayLength * resSum;
-  const interestPaid = sumPaymentAmount - interest;
+  // const interestPaid = sumPaymentAmount - interest;
+  const interestPaid = sumPaymentAmount;
  
 
 
@@ -42,7 +43,7 @@ export default function MortgageCalculator() {
   const handelChange = e => {
     const get = (e.target.value)
     const res = (selector.filter(sel => sel.bancname.toLowerCase().includes(get)))
-   setInterest(res[0].interestrate)
+  //  setInterest(res[0].interestrate)
       res.map(({ interestrate, maximumcredit, loanterm }) => (
        calculate(
      interestrate,maximumcredit,loanterm
@@ -95,8 +96,10 @@ export default function MortgageCalculator() {
                    <tr>
                     <Td>Amount</Td>
                     <Td>{amountFormat(sumPaymentAmount)}</Td>
-                    <Td>{amountFormat(interestPaid)}</Td>
-                    <Td>{amountFormat(interest)}</Td>
+                <Td>{amountFormat(interestPaid)}</Td>
+                    
+                {/* <Td>{amountFormat(interest)}</Td> */}
+                    <Td>-</Td>
                     <Td>{amountFormat(0)}</Td>
                  </tr>
                  }
