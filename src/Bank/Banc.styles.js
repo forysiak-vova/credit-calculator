@@ -21,8 +21,9 @@ export const CalculateButton = styled.button`
 
 export const Container = styled.div`
  font-size: 18px;
-   width: 600px;
-   text-align: center;
+ width: 100%;
+ max-width: 600px;
+ text-align: center;
 `;
 
 export const FormItem = styled.div`
